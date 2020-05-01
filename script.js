@@ -7,7 +7,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 function generatePassword() {
@@ -44,37 +43,14 @@ function generatePassword() {
       var passNum = confirm("Would you like numbers in your password?");
       var passSpecial = confirm("Would you like special characters in your password?");
 
-      if(passLC === true || passUC === true || passNum === true || passSpecial === true){
+      if(passLC === true || passUC === true || passNum === true || passSpecial === true) {
         typeValid = true;
       }
     }
   }
 
   //Creates array of criteria. 0 = lc, 1 = uc, 2 = num, 3 = special
-  var criteriaArr = [];
-  if(passLC === true){
-    criteriaArr[0] = true;
-  } else {
-    criteriaArr[0] = false;
-  }
-
-  if(passUC === true) {
-    criteriaArr[1] = true;
-  } else {
-    criteriaArr[1] = false;
-  }
-
-  if(passNum === true) {
-    criteriaArr[2] = true;
-  } else {
-    criteriaArr[2] = false;
-  }
-
-  if(passSpecial === true) {
-    criteriaArr[3] = true;
-  } else {
-    criteriaArr[3] = false;
-  }
+  var criteriaArr = [passLC, passUC, passNum, passSpecial];
   
   //Declares lowercase letters
   var lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -88,18 +64,17 @@ function generatePassword() {
   //Array to check which charset to use
   var charSet = [];
   //Run through criteria array, check if the criteria is selected, add it to charSet[c]
-  for(var i = 0, c = 0; i < criteriaArr.length; i++) {
+  for(var i = 0; i < criteriaArr.length; i++) {
     if(criteriaArr[i] === true) {
       if(i === 0) {
-        charSet[c] = lowercaseLetters;
+        charSet.push(lowercaseLetters);
       } else if(i === 1) {
-        charSet[c] = uppercaseLetters;
+        charSet.push(uppercaseLetters);
       } else if (i === 2) {
-        charSet[c] = numbersList;
+        charSet.push(numbersList);
       } else if(i === 3) {
-        charSet[c] = specialCharacters;
+        charSet.push(specialCharacters);
       }
-      c++;
     }
   }
 
