@@ -81,25 +81,29 @@ function generatePassword() {
   //Declares password variable for return
   var password = "";
   //Password is valid variable
-  var passwordValid;
   do {
     //Runs through every spot of the password based on length
     for(var i = 0; i < passLength; i++){
       //Generates a number to pick which charset it's in
       var charSetRandom = Math.floor(Math.random() * charSet.length);
       var randomNum = Math.floor(Math.random() * charSet[charSetRandom].length);
-
+      //Assigns random character in random character set to the next spot in the password
       password += charSet[charSetRandom][randomNum];
     }
-
+    
     //VALIDATE
-    var validCount = 0;
+    //T/F for valid password
+    var passwordValid;
     //Run through each character set
     for(var i = 0; i < charSet.length; i++) {
+      //Counts how many character sets are valid
+      var validCount = 0;
+
       //Loop through characters of the password
       for(var c = 0; c < password.length; c++) {
         //Declare break variable
         var breakLoop = false;
+
         //Loop through the characters of the charset and see if one matches
         for(var j = 0; j < charSet[i].length; j++) {
           //If one does, up the valid counter and exit loop
@@ -109,10 +113,13 @@ function generatePassword() {
             break;
           }
         }
+
+        //Exit loop and go to next character set
         if(breakLoop === true) {
           break;
         }
       }
+
       //If there was a match for each charset set passwordValid to true and break out of validating for loop
       if(validCount === charSet.length) {
         passwordValid = true;
@@ -120,7 +127,8 @@ function generatePassword() {
       }
     }
 
-  }while(passwordValid === false);
+  } while(passwordValid === false);
+  
   //Return the password
   return password;
 }
